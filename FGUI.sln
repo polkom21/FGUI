@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26430.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FGUI", "FGUI\FGUI.vcxproj", "{C7A826EF-011B-4B52-B81D-6BA12AD94110}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FguiTestApp", "FguiTestApp\FguiTestApp.vcxproj", "{F244E47D-B21C-4DB3-A0E3-98A50EAEC00A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,14 @@ Global
 		{C7A826EF-011B-4B52-B81D-6BA12AD94110}.Release|x64.Build.0 = Release|x64
 		{C7A826EF-011B-4B52-B81D-6BA12AD94110}.Release|x86.ActiveCfg = Release|Win32
 		{C7A826EF-011B-4B52-B81D-6BA12AD94110}.Release|x86.Build.0 = Release|Win32
+		{F244E47D-B21C-4DB3-A0E3-98A50EAEC00A}.Debug|x64.ActiveCfg = Debug|x64
+		{F244E47D-B21C-4DB3-A0E3-98A50EAEC00A}.Debug|x64.Build.0 = Debug|x64
+		{F244E47D-B21C-4DB3-A0E3-98A50EAEC00A}.Debug|x86.ActiveCfg = Debug|Win32
+		{F244E47D-B21C-4DB3-A0E3-98A50EAEC00A}.Debug|x86.Build.0 = Debug|Win32
+		{F244E47D-B21C-4DB3-A0E3-98A50EAEC00A}.Release|x64.ActiveCfg = Release|x64
+		{F244E47D-B21C-4DB3-A0E3-98A50EAEC00A}.Release|x64.Build.0 = Release|x64
+		{F244E47D-B21C-4DB3-A0E3-98A50EAEC00A}.Release|x86.ActiveCfg = Release|Win32
+		{F244E47D-B21C-4DB3-A0E3-98A50EAEC00A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
