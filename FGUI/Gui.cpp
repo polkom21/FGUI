@@ -27,7 +27,7 @@ namespace Fgui
 		}
 	}
 
-	void Gui::Draw(sf::RenderWindow & window)
+	void Gui::Draw(sf::RenderWindow & window) const
 	{
 		sf::Vector2f mousePos = sf::Vector2f(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y);
 		for (size_t i = 0; i < elements.size(); i++)

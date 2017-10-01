@@ -24,7 +24,7 @@ namespace Fgui
 
 		void AddElement(GuiElement * element, sf::String name = "");
 		void HandleInput(sf::Event event);
-		void Draw(sf::RenderWindow & window);
+		void Draw(sf::RenderWindow & window) const;
 
 		sf::Font & GetFont();
 	};
