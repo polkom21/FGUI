@@ -20,6 +20,7 @@ namespace Fgui {
 
 		void SetFont(sf::Font font, unsigned int charSize = 16);
 		void SetString(sf::String string);
+		void SetTextColor(sf::Color color);
 	};
 
 

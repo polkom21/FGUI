@@ -77,4 +77,8 @@ namespace Fgui {
 		this->text.setString(string);
 		this->Update();
 	}
+	void Label::SetTextColor(sf::Color color)
+	{
+		this->text.setColor(color);
+	}
 }
