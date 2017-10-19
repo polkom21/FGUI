@@ -26,13 +26,16 @@ namespace Fgui {
 
 	void Label::Draw(sf::RenderWindow & window, sf::Vector2f parentPosition)
 	{
+		this->parentPosition = parentPosition;
+		this->text.setPosition(this->position);
 		this->text.move(parentPosition);
 		
 		window.draw(this->text);
 	}
 	void Label::Draw(sf::RenderTexture & window, sf::Vector2f parentPosition)
 	{
-		this->text.move(parentPosition);
+		this->parentPosition = parentPosition;
+		this->text.setPosition(this->position);
 
 		window.draw(this->text);
 	}
@@ -62,8 +65,6 @@ namespace Fgui {
 		}
 
 		this->text.setPosition(this->position);
-		
-		//printf("Label X:%f\tY:%f\tWidht:%f\tHeight:%f\n", this->position.x, this->position.y, this->size.width, this->size.height);
 	}
 	void Label::SetFont(sf::Font font, unsigned int charSize)
 	{
@@ -79,6 +80,7 @@ namespace Fgui {
 	}
 	void Label::SetTextColor(sf::Color color)
 	{
-		this->text.setColor(color);
+		this->text.setFillColor(color);
+		this->Update();
 	}
 }

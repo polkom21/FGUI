@@ -23,7 +23,8 @@ namespace Fgui {
 	}
 	void Button::Draw(sf::RenderWindow & window, sf::Vector2f parentPosition)
 	{
-		//printf("Button size \tx:%f\ty:%f\n", this->size.x, this->size.y);
+		/*printf("Button size \tx:%f\ty:%f \tButtonPos \tx:%f\ty:%f \n", this->size.x, this->size.y, this->position.x + this->parentPosition.x, this->position.y + this->parentPosition.y);*/
+		this->parentPosition = parentPosition;
 
 		this->text.setFont(this->font);
 		texture.create(this->size.x, this->size.y);
@@ -33,10 +34,14 @@ namespace Fgui {
 
 		sprite.setTexture(texture.getTexture());
 
+		sprite.setPosition(this->position);
+
 		window.draw(sprite);
 	}
 	void Button::Draw(sf::RenderTexture & window, sf::Vector2f parentPosition)
 	{
+		//printf("Button size \tx:%f\ty:%f \tButtonPos \tx:%f\ty:%f \n", this->size.x, this->size.y, this->position.x + this->parentPosition.x, this->position.y + this->parentPosition.y);
+		this->parentPosition = parentPosition;
 		this->text.setFont(this->font);
 		texture.create(this->size.x, this->size.y);
 		texture.clear(this->backgroundColor);
