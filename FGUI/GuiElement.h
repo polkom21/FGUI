@@ -73,8 +73,9 @@ namespace Fgui {
 				if (event.mouseButton.button == sf::Mouse::Left) {
 					this->clicked = false;
 					this->released = true;
+					if(this->dragged)
+						this->dropped = true;
 					this->dragged = false;
-					this->dropped = true;
 				}
 				break;
 			}
@@ -86,7 +87,7 @@ namespace Fgui {
 					break;
 				}
 				this->dragged = false;
-				this->dropped = true;
+				this->dropped = false;
 				break;
 			}
 			}
