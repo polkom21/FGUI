@@ -29,6 +29,7 @@ namespace Fgui {
 		std::map<Signals, std::function<void()>> signals;
 		sf::Vector2f padding = sf::Vector2f(0, 0);
 		sf::Vector2f position = sf::Vector2f(0, 0);
+		sf::Vector2f parentPosition = sf::Vector2f(0, 0);
 		sf::Vector2f size = sf::Vector2f(0, 0);
 		sf::FloatRect rect = sf::FloatRect(0, 0, 0, 0);
 		HorizontalAlignment horizontalAlign = HorizontalAlignment::Center;
@@ -48,9 +49,9 @@ namespace Fgui {
 		virtual void Draw(sf::RenderWindow & window, sf::Vector2f parentPosition = sf::Vector2f(0, 0)) = 0;
 		virtual void Draw(sf::RenderTexture & window, sf::Vector2f parentPosition = sf::Vector2f(0, 0)) = 0;
 		virtual void Update() = 0;
-		void HandleInput(sf::Event event)
+		virtual void HandleInput(sf::Event event)
 		{
-			this->rect = sf::FloatRect(position.x, position.y, size.x, size.y);
+			this->rect = sf::FloatRect(position.x + parentPosition.x, position.y + parentPosition.y, size.x, size.y);
 			
 			if (!this->rect.contains(this->mousePos))
 				return;
@@ -102,7 +103,13 @@ namespace Fgui {
 			if (this->dropped && signals.find(Signals::onDrop) != signals.end()) {
 				signals.at(Signals::onDrop)();
 			}
-				
+
+			for (size_t i = 0; i < this->elements.size(); i++)
+			{
+				//printf("Start element: %s\n", this->names.at(i).toAnsiString().c_str());
+				this->elements.at(i)->HandleInput(event);
+				//printf("End element: %s\n", this->names.at(i).toAnsiString().c_str());
+			}
 			//printf("Clicked %d\t Released %d\t Dragged %d\t Dropped %d\n", this->clicked, this->released, this->dragged, this->dropped);
 		}
 
