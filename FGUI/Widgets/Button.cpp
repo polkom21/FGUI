@@ -33,8 +33,7 @@ namespace Fgui {
 		texture.display();
 
 		sprite.setTexture(texture.getTexture());
-
-		sprite.setPosition(this->position);
+		sprite.setPosition(this->position + this->margin);
 
 		window.draw(sprite);
 	}
@@ -49,6 +48,7 @@ namespace Fgui {
 		texture.display();
 
 		sprite.setTexture(texture.getTexture());
+		sprite.setPosition(this->position + this->margin);
 
 		window.draw(sprite);
 	}

@@ -28,7 +28,7 @@ namespace Fgui {
 	{
 		this->parentPosition = parentPosition;
 		this->text.setPosition(this->position);
-		this->text.move(parentPosition);
+		this->text.move(this->margin);
 		
 		window.draw(this->text);
 	}
@@ -36,6 +36,7 @@ namespace Fgui {
 	{
 		this->parentPosition = parentPosition;
 		this->text.setPosition(this->position);
+		this->text.move(this->margin);
 
 		window.draw(this->text);
 	}
