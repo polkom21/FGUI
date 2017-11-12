@@ -42,8 +42,14 @@ namespace Fgui {
 			released = false,
 			dragged = false,
 			dropped = false;
+
+		sf::Vector2f clickedPos = sf::Vector2f(0, 0),
+					releasedPos = sf::Vector2f(0, 0),
+					draggedPos = sf::Vector2f(0, 0),
+					droppedPos = sf::Vector2f(0, 0);
 	public:
-		sf::Vector2f mousePos;
+		sf::Vector2f mousePos,
+					margin = sf::Vector2f(0, 0);
 
 		virtual void AddElement(GuiElement * element, sf::String name = "") = 0;
 		virtual void Draw(sf::RenderWindow & window, sf::Vector2f parentPosition = sf::Vector2f(0, 0)) = 0;
@@ -51,7 +57,7 @@ namespace Fgui {
 		virtual void Update() = 0;
 		virtual void HandleInput(sf::Event event)
 		{
-			this->rect = sf::FloatRect(position.x + parentPosition.x, position.y + parentPosition.y, size.x, size.y);
+			this->rect = sf::FloatRect(position.x + parentPosition.x + margin.x, position.y + parentPosition.y + margin.y, size.x, size.y);
 			
 			if (!this->rect.contains(this->mousePos))
 				return;
@@ -61,6 +67,8 @@ namespace Fgui {
 			case sf::Event::MouseButtonPressed:
 			{
 				if (event.mouseButton.button == sf::Mouse::Left) {
+					this->clickedPos = sf::Vector2f(event.mouseButton.x, event.mouseButton.y);
+
 					this->clicked = true;
 					this->released = false;
 					this->dragged = false;
@@ -71,10 +79,15 @@ namespace Fgui {
 			case sf::Event::MouseButtonReleased:
 			{
 				if (event.mouseButton.button == sf::Mouse::Left) {
+					this->releasedPos = sf::Vector2f(event.mouseButton.x, event.mouseButton.y);
+
 					this->clicked = false;
 					this->released = true;
-					if(this->dragged)
+					if (this->dragged)
+					{
 						this->dropped = true;
+						this->droppedPos = this->releasedPos;
+					}
 					this->dragged = false;
 				}
 				break;
@@ -82,6 +95,8 @@ namespace Fgui {
 			case sf::Event::MouseMoved:
 			{
 				if (this->clicked) {
+					this->draggedPos = sf::Vector2f(event.mouseMove.x, event.mouseMove.y);
+
 					this->dragged = true;
 					this->dropped = false;
 					break;
@@ -89,6 +104,13 @@ namespace Fgui {
 				this->dragged = false;
 				this->dropped = false;
 				break;
+			}
+			default:
+			{
+				this->clicked = false;
+				this->released = false;
+				this->dragged = false;
+				this->dropped = false;
 			}
 			}
 
