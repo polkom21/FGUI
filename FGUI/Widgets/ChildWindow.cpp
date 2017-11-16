@@ -67,6 +67,10 @@ void Fgui::ChildWindow::Draw(sf::RenderTexture & window, sf::Vector2f parentPosi
 
 void Fgui::ChildWindow::Update()
 {
+	for (size_t i = 0; i < this->elements.size(); i++)
+	{
+		this->elements.at(i)->Update();
+	}
 }
 
 void Fgui::ChildWindow::HandleInput(sf::Event event)
