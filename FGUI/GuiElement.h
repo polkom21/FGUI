@@ -150,6 +150,10 @@ namespace Fgui {
 			this->Update();
 		}
 
+		sf::Vector2f GetSize() {
+			return this->size;
+		}
+
 		void Connect(Signals singal, std::function<void()> fun) {
 			this->signals.insert_or_assign(singal, fun);
 		}
