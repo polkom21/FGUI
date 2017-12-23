@@ -33,6 +33,10 @@ int main()
 				switch (event.key.code)
 				{
 				case sf::Keyboard::Space:
+					title->SetParent(label);
+					break;
+
+				case sf::Keyboard::BackSpace:
 					title->SetParent(NULL);
 					break;
 
