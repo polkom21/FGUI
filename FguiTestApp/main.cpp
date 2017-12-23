@@ -7,34 +7,15 @@ int main()
 	sf::Event event;
 
 	// Create gui object
-	Fgui::Gui * gui = new Fgui::Gui();
+	Fgui::Gui * gui = new Fgui::Gui(window.getSize());
 
-	// Create label
-	Fgui::Label *label = new Fgui::Label("Test label", gui->GetFont());
-	label->SetPadding(sf::Vector2f(0, 0));
-	label->SetPosition(sf::Vector2f(0, 45));
-	//label->SetAlignment(Fgui::HorizontalAlignment::Center, Fgui::VerticalAlignment::Center);
-	//gui->AddElement(label);
+	Fgui::Label *label = new Fgui::Label("test label", gui->GetFont());
+	label->SetPosition(sf::Vector2f(100, 300));
+	gui->AddElement(label);
 
-	// Create button
-	Fgui::Button *button = new Fgui::Button("Close window", gui->GetFont());
-	button->SetPadding(sf::Vector2f(50, 25));
-	//button->SetAlignment(Fgui::HorizontalAlignment::Center, Fgui::VerticalAlignment::Center);
-	button->SetPosition(sf::Vector2f(0, 0));
-
-	button->Connect(Fgui::Signals::onClick, [&]() { window.close(); });
-	
-	//gui->AddElement(button);
-
-	// Create ChildWindow
-	Fgui::ChildWindow *win = new Fgui::ChildWindow("Test window", gui->GetFont());
-	win->SetPosition(sf::Vector2f(10, 100));
-	win->SetSize(sf::Vector2f(300, 420));
-	label->SetTextColor(sf::Color::Green);
-	win->AddElement(label, "test label");
-	win->AddElement(button, "closebutton");
-
-	gui->AddElement(win);
+	Fgui::Label *title = new Fgui::Label("Fgui Test App", gui->GetFont());
+	title->SetParent(label);
+	gui->AddElement(title);
 
 	while (window.isOpen())
 	{
@@ -46,6 +27,28 @@ int main()
 			}
 			if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
 				window.close();
+
+			if (event.type == sf::Event::KeyPressed)
+			{
+				switch (event.key.code)
+				{
+				case sf::Keyboard::Space:
+					title->SetParent(NULL);
+					break;
+
+				case sf::Keyboard::Left:
+					label->SetPosition(sf::Vector2f(0, 100));
+					break;
+
+				case sf::Keyboard::Right:
+					label->SetPosition(sf::Vector2f(400, 100));
+					break;
+
+				default:
+					break;
+				}
+			}
+				
 
 			gui->HandleInput(event);
 		}
