@@ -2,8 +2,9 @@
 
 namespace Fgui
 {
-	Gui::Gui()
+	Gui::Gui(sf::Vector2u size = sf::Vector2u(0, 0))
 	{
+		this->size = size;
 		this->font.loadFromFile("arial.ttf");
 	}
 
@@ -30,11 +31,22 @@ namespace Fgui
 	void Gui::Draw(sf::RenderWindow & window) const
 	{
 		sf::Vector2f mousePos = sf::Vector2f(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y);
+		sf::Sprite guiSprite;
+		sf::RenderTexture texture;
+		texture.create(this->size.x, this->size.y);
+		texture.clear(sf::Color::Transparent);
+
 		for (size_t i = 0; i < elements.size(); i++)
 		{
 			elements.at(i)->mousePos = mousePos;
-			elements.at(i)->Draw(window);
+			elements.at(i)->Draw(texture);
 		}
+
+		texture.display();
+
+		guiSprite.setTexture(texture.getTexture());
+
+		window.draw(guiSprite);
 	}
 	sf::Font & Gui::GetFont()
 	{

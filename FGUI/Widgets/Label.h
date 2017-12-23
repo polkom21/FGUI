@@ -13,9 +13,7 @@ namespace Fgui {
 		~Label();
 
 		// Odziedziczono za poœrednictwem elementu GuiElement
-		virtual void AddElement(GuiElement * element, sf::String name) override;
-		virtual void Draw(sf::RenderWindow & window, sf::Vector2f parentPosition) override;
-		virtual void Draw(sf::RenderTexture & window, sf::Vector2f parentPosition) override;
+		virtual void Draw(sf::RenderTexture & texture) override;
 		virtual void Update() override;
 
 		void SetFont(sf::Font font, unsigned int charSize = 16);

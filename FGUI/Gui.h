@@ -7,8 +7,6 @@
 #include "GuiElement.h"
 
 #include "Widgets\Label.h"
-#include "Widgets\Button.h"
-#include "Widgets\ChildWindow.h"
 
 namespace Fgui
 {
@@ -18,8 +16,9 @@ namespace Fgui
 		std::vector<GuiElement*> elements;
 		std::vector<sf::String> names;
 		sf::Font font;
+		sf::Vector2u size;
 	public:
-		Gui();
+		Gui(sf::Vector2u size);
 		~Gui();
 
 		void AddElement(GuiElement * element, sf::String name = "");

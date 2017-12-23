@@ -5,18 +5,6 @@
 
 namespace Fgui {
 
-	enum class API HorizontalAlignment {
-		Left,
-		Center,
-		Right
-	};
-
-	enum class API VerticalAlignment {
-		Top,
-		Center,
-		Bottom
-	};
-
 	enum class API Signals {
 		onClick,
 		onRelease,
@@ -27,17 +15,11 @@ namespace Fgui {
 	class API GuiElement {
 	protected:
 		std::map<Signals, std::function<void()>> signals;
-		sf::Vector2f padding = sf::Vector2f(0, 0);
-		sf::Vector2f position = sf::Vector2f(0, 0);
-		sf::Vector2f parentPosition = sf::Vector2f(0, 0);
-		sf::Vector2f size = sf::Vector2f(0, 0);
 		sf::FloatRect rect = sf::FloatRect(0, 0, 0, 0);
-		HorizontalAlignment horizontalAlign = HorizontalAlignment::Center;
-		VerticalAlignment verticalAlign = VerticalAlignment::Center;
 		sf::Font font;
 
-		std::vector<GuiElement*> elements;
-		std::vector<sf::String> names;
+		GuiElement *parent = NULL;
+
 		bool clicked = false,
 			released = false,
 			dragged = false,
@@ -48,16 +30,12 @@ namespace Fgui {
 					draggedPos = sf::Vector2f(0, 0),
 					droppedPos = sf::Vector2f(0, 0);
 	public:
-		sf::Vector2f mousePos,
-					margin = sf::Vector2f(0, 0);
+		sf::Vector2f mousePos;
 
-		virtual void AddElement(GuiElement * element, sf::String name = "") = 0;
-		virtual void Draw(sf::RenderWindow & window, sf::Vector2f parentPosition = sf::Vector2f(0, 0)) = 0;
-		virtual void Draw(sf::RenderTexture & window, sf::Vector2f parentPosition = sf::Vector2f(0, 0)) = 0;
+		virtual void Draw(sf::RenderTexture & texture) = 0;
 		virtual void Update() = 0;
 		virtual void HandleInput(sf::Event event)
 		{
-			this->rect = sf::FloatRect(position.x + parentPosition.x + margin.x, position.y + parentPosition.y + margin.y, size.x, size.y);
 			
 			if (!this->rect.contains(this->mousePos))
 				return;
@@ -127,31 +105,28 @@ namespace Fgui {
 				signals.at(Signals::onDrop)();
 			}
 
-			for (size_t i = 0; i < this->elements.size(); i++)
-			{
-				//printf("Start element: %s\n", this->names.at(i).toAnsiString().c_str());
-				this->elements.at(i)->HandleInput(event);
-				//printf("End element: %s\n", this->names.at(i).toAnsiString().c_str());
-			}
 			//printf("Clicked %d\t Released %d\t Dragged %d\t Dropped %d\n", this->clicked, this->released, this->dragged, this->dropped);
 		}
 
 		void SetPosition(sf::Vector2f pos) {
-			this->position = pos;
-			this->Update();
-		}
-		void SetPadding(sf::Vector2f padding) {
-			this->padding = padding;
-			this->Update();
-		}
-		void SetAlignment(HorizontalAlignment horizontal, VerticalAlignment vertical) {
-			this->horizontalAlign = horizontal;
-			this->verticalAlign = vertical;
+			this->rect.left = pos.x;
+			this->rect.top = pos.y;
 			this->Update();
 		}
 
-		sf::Vector2f GetSize() {
-			return this->size;
+		sf::Vector2f GetPosition() {
+			sf::Vector2f pos = sf::Vector2f(this->rect.left, this->rect.top);
+
+			if (this->parent != NULL) {
+				pos.x += this->parent->GetPosition().x;
+				pos.y += this->parent->GetPosition().y;
+			}
+
+			return pos;
+		}
+
+		void SetParent(GuiElement *element) {
+			this->parent = element;
 		}
 
 		void Connect(Signals singal, std::function<void()> fun) {
