@@ -14,8 +14,16 @@ int main()
 	gui->AddElement(label);
 
 	Fgui::Label *title = new Fgui::Label("Fgui Test App", gui->GetFont());
-	title->SetParent(label);
+	title->SetPosition(sf::Vector2f(10, 10));
 	gui->AddElement(title);
+
+	Fgui::Label *close = new Fgui::Label("Closeapp", gui->GetFont());
+	close->SetPosition(sf::Vector2f(300, 10));
+	gui->AddElement(close);
+	close->Connect(Fgui::Signals::onClick, [&]() { 
+		printf("Close window \n");
+		window.close(); 
+	});
 
 	while (window.isOpen())
 	{
