@@ -8,6 +8,7 @@ namespace Fgui {
 		this->text.setFont(this->font);
 		this->text.setCharacterSize(16);
 		this->text.setString(string);
+		this->Update();
 	}
 
 	Label::~Label()
@@ -23,6 +24,9 @@ namespace Fgui {
 
 	void Label::Update()
 	{
+		sf::FloatRect localRect = this->text.getLocalBounds();
+		this->rect.width = localRect.width;
+		this->rect.height = localRect.height;
 	}
 
 	void Label::SetFont(sf::Font font, unsigned int charSize)
