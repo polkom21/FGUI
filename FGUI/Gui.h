@@ -7,6 +7,7 @@
 #include "GuiElement.h"
 
 #include "Widgets\Label.h"
+#include "Widgets\Button.h"
 
 namespace Fgui
 {

@@ -25,6 +25,17 @@ int main()
 		window.close(); 
 	});
 
+
+	// Create gui button
+
+	Fgui::Button *button = new Fgui::Button("Close Window", gui->GetFont());
+	button->SetPosition(sf::Vector2f(100, 200));
+	button->SetPadding(sf::Vector2f(30, 15));
+	button->Connect(Fgui::Signals::onClick, [&]() {
+		window.close();
+	});
+	gui->AddElement(button);
+
 	while (window.isOpen())
 	{
 		while (window.pollEvent(event))

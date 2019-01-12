@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FGUI", "FGUI\FGUI.vcxproj", "{C7A826EF-011B-4B52-B81D-6BA12AD94110}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FguiTestApp", "FguiTestApp\FguiTestApp.vcxproj", "{F244E47D-B21C-4DB3-A0E3-98A50EAEC00A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C7A826EF-011B-4B52-B81D-6BA12AD94110} = {C7A826EF-011B-4B52-B81D-6BA12AD94110}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,5 +37,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {4372CCF2-2001-4628-9911-CF66D5C881FD}
 	EndGlobalSection
 EndGlobal
